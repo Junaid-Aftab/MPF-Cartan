@@ -683,7 +683,7 @@ class FindParameters:
         self.accuracy = accuracy
         self.lenK = len(self.cartan.k)
         self.lenh = len(self.cartan.h)
-        self.tolerance = 1e-7
+        self.tolerance = 1e-4
         self.steps = steps
         #Begin Optimizer
         if loadfileName is not None: #If able to, loads prior results
@@ -1203,9 +1203,9 @@ class FindParameters:
         for (co, tup) in zip(self.hCoefs, self.cartan.h):
             print(str(co).ljust(25) + '*' + str(IO.paulilabel(tup)))
         print('Normed Error |KHK - Exact|:')
-        U_cartan = CQS.util.verification.KHK(self.kCoefs, self.hCoefs,self.cartan.k, self.cartan.h)
+        U_cartan = Utility_Functions.verification.KHK(self.kCoefs, self.hCoefs,self.cartan.k, self.cartan.h)
 
-        U_exact = CQS.util.verification.exactU(self.hamiltonian.HCoefs, self.hamiltonian.HTuples, 1)
+        U_exact = Utility_Functions.verification.exactU(self.hamiltonian.HCoefs, self.hamiltonian.HTuples, 1)
 
         print(np.linalg.norm(U_exact - U_cartan))
     
@@ -1225,3 +1225,4 @@ class FindParameters:
                 writer = csv.writer(f)
                 writer.writerows(solutionList)
         f.close()
+        
